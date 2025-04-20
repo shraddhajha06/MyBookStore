@@ -1,0 +1,67 @@
+/* Reset some default browser styles */
+body, h2, form {
+    margin: 0;
+    padding: 0;
+}
+
+/* Center the form vertically and horizontally */
+.signup-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #1e2f36;
+}
+
+/* Style the form */
+form {
+    background-color: #d9d9fd;
+    width: 50%;
+    border-radius: 10px;
+    box-shadow: 50 50 50px rgba(247, 240, 240, 0.788);
+    padding: 20px;
+    text-align: center;
+}
+
+h2 {
+    font-size: 45px;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    color: #f7f2f2;
+    margin-bottom: 40px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    font-weight: bold;
+    display: block;
+    margin-bottom: 10px;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 5px;
+    border: 1px solid #090909;
+    border-radius: 5px;
+}
+
+button[type="submit"] {
+    background-color: #1c5f13ea;
+    color: #fff;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bolder;
+    transition: background-color 0.2s;
+}
+
+button[type="submit"]:hover {
+    background-color: #e44e20;
+}

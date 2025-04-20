@@ -1,0 +1,214 @@
+body {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, Verdana, Geneva, Tahoma, sans-serif;
+    background-color: rgb(222, 240, 245)
+}
+header {
+    text-align: left;
+    background-image: url('https://images.unsplash.com/photo-1516979187457-637abb4f9353?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxleHBsb3JlLWZlZWR8MTZ8fHxlbnwwfHx8fHw%3D&auto=format&fit=crop&w=500&q=60'); 
+    background-size: cover;
+    background-position:center;
+    color:#0c0101;
+    padding: 150px 50px;
+}
+
+h1 {
+    font-size: 50px;
+}
+
+
+/* Style the navigation bar */
+header1 {
+    background-color: #0b0b0b;
+    color: #fff;
+    text-align:right;
+    padding: 10px 10px;
+    position: absolute;  
+ left: 0;  
+right: 0;  
+top: 0;  
+height: 40px;  
+display: flex;  
+align-items: center;  
+box-shadow: 0 0 25px 0 black;  
+}
+
+nav ul {
+    display: inline;
+    justify-content:right;
+}
+
+nav li {
+    display: inline;
+    margin: 20px;
+}
+
+nav a {
+    text-decoration: forestgreen;
+    color: #fff;
+    font-weight: bold;
+    font-size:large;
+    transition: color 0.3s;
+}
+
+nav a:hover {
+    color: #66bdd8;
+}
+nav ul li img {
+    width: 30px; /* Adjust the width as needed */
+    height: 30px; /* Adjust the height as needed */
+    margin-left: 8px;;; /* Adjust the spacing between the logo and text */
+}
+body, form {
+    margin: 0;
+    padding: 0;
+}
+
+/* Style the search container */
+.search-container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+/* Style the search input field */
+input[type="text"] {
+    padding: 15px 20px;
+    width: 900px;
+    border: 2px solid #3a3535;
+    border-radius: 5px;
+    font-size: 16px;
+    outline: none; /* Remove the outline on focus */
+}
+
+/* Style the search button */
+button[type="submit"] {
+    padding: 15px 20px;
+    background-color: #007bff;
+    color: #f7f4f4;
+    border:2px solid #3a3535; ;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    outline: none;
+}
+
+button[type="submit"]:hover {
+    background-color: #086818;
+}
+.book-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: flex-start;
+    max-width: fit-content;
+    margin: 100px 50px;
+    padding: 80px;
+}
+body{
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: larger;
+}
+header2 {
+    background-color: #a2a5af;
+    color: #101111;
+    text-align: left;
+    padding: 150px 0;
+    height: 0;  
+    display: flex;  
+    align-items: center;  
+    box-shadow: 0 0 5px 0 black;  
+}
+
+header nav ul {
+    list-style: none;
+    display: flex; /* To create a horizontal menu */
+}
+
+header nav li {
+    margin-right: 0; /* Adjust spacing between menu items */
+}
+
+header nav a {
+    text-decoration: navajowhite;
+    color: #c75b5b; /* Set link color */
+}
+
+
+/* Style individual books */
+.book {
+    text-align: center;
+    margin: 10px;
+    padding:20px 0px;
+}
+
+.book img {
+    max-width: 100%;
+    height: auto;
+    margin: 30px 30px 30px 20px;
+    border: 1px solid #ccc;
+    transition: transform 0.3s;
+    box-shadow: 10px 10px 10px rgba(8, 1, 1, 0.897);
+}
+    .book img:hover {
+    transform: scale(1.1);
+}
+
+.book-title {
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+.books {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 20px;
+}
+#buy-button {
+    background-color: #3b434d;
+    color: #fff;
+    padding: 10px 10px;
+    font-size: 16px;
+    border:2px solid #3a3535; ;
+    border-radius: 8px;
+    cursor: pointer;
+}
+#buy-button:hover {
+    background-color: #3066ac;
+}
+
+.button-container {
+    display: flex;
+    justify-content:space-around;
+    align-items: right;
+    margin: 30px 0; 
+}
+
+.button {
+    padding: 10px 20px;
+    background-color: #191188;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button:hover {
+    background-color: #147932; /* Change the hover color as needed */
+}
+
+a {
+    color: #126fd3;
+    text-decoration: crimson;
+    font-weight: bold;
+}
+
+a:hover {
+    color: #fa611a;
+}
+footer {
+    text-align: center;
+    background-color: #191350;
+    color: #fff;
+    padding: 10px 0;
+}
