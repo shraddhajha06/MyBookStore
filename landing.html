@@ -3,255 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookStore - Your Online Book Destination</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="main.css">
-    <title>Book Store</title>
-</head>
-<body>
-    <header>
-        <h2>Discover a World of Books</h2>
-        <h1>THE TRANQUIL BOOK HEAVEN</h1>
-        <p>Explore our collection of the finest books.</p>
-        </header>
-        <body>
-            <div class="search-container">
-                <form action="search.php" method="get">
-                    <input type="text" name="query" placeholder="Search...">
-                    <button type="submit">Search</button>
-                </form>
-            </div>
-        </body>
-        <body>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+        }
 
-    <!-- Navigation Menu -->
-    <div class="button-container">
-        
-         <body>
-            <header1>
-                <nav>
-                    <ul>
-                           <li><a href="#home">Home</a><img src="./Images/home.jfif" alt="home Logo"></li>
-                           <li><a href="#About Us">About Us</a><img src="./Images/abo.png" alt="about Logo"></li>
-                           <li><a href="cart.html">Cart</a><img src="./Images/Cart.jfif" alt="cart Logo"></li>
-                           <li><a href="#signup">Sign Up</a><img src="./Images/signup.jfif" alt="sign up Logo"></li>
-                           <li><a href="#login">Log In</a><img src="./Images/loginin.png" alt="login Logo"></li>
-                          <li><a href="#contact Us">Contact</a><img src="./Images/contact.png" alt="contact Logo"></li>
-                    </ul>
-                </nav>
-            </header1>
-         </body>
-    </div>
-    <header2>
-        <nav>
-            <h1>ABOUT</h1>
-            <p>
-                "Welcome to 'The Tranquil Book Heaven' your digital sanctuary for all things literature. We are dedicated to celebrating the world of books and novels, connecting readers, and exploring the magic of storytelling.
-                Our mission is to ignite a passion for reading, foster a vibrant community of book lovers, and provide valuable resources and recommendations for all your literary adventures.
-            </p>
-             <p>
-                If you have any questions, suggestions, or just want to share your love for books, please feel free to contact us at shraddha4@email.com.
-                Ready to dive into the world of literature? Start exploring our book reviews, join our community discussions, and embark on a literary journey with us!"
-            </p>
-        </nav>
-    </header2>
-    
-    <section id="books" class="book-listings">
-        <div class="book-container">
-            <div class="book">
-                <img src="./Images/The Alchemist.jpeg" alt="Book 2">
-                <p class="Book Title">The Alchemist</p>
-                <p class ="Author">Author: Paulo Coelho</p>
-                <p class = "Price">Price: ₹299.00 </p>
-                <button class="buy-button">Add Cart</button>
-                <button class="buy-button">Buy Now</button>           
-            </div>
-            <div class="book">
-                <img src="./Images/When Breath Becomes Air.png" alt="Book 2">
-                <p class="Book Title">When Breath Becomes Air</p>
-                <p class ="Author">Author: Paul Kalanithi</p>
-                <p class = "Price">Price: ₹199.00 </p>
-                <button class="buy-button">Add Cart</button>
-                <button class="buy-button">Buy Now</button>     
-            </div>
-            <div class="book">
-                <img src="./Images/The adventures of tom sawyer.jpeg"alt="Book 3">
-                <p class="Book Title">The adventures of tom sawyer </p>
-                <p class ="Author">Author: Mark Twain</p>
-                <p class = "Price">Price: ₹149.00</p> 
-                <button class="buy-button">Add Cart</button>
-                <button class="buy-button">Buy Now</button> 
-             </div>
-            <div class="book">
-                <img src="./Images/Wings.jfif" alt="Book 4">
-                <p class="Book Title">WINGS OF FIRE(Autobiography) </p>
-                <p class ="Author">Author: APJ Abdul Kalam</p>
-                <p class = "Price">Price: ₹174.00 </p> 
-                <button class="buy-button">Add Cart</button>
-                <button class="buy-button">Buy Now</button>     
-            </div>
-            <div class="book">
-                    <img src="./Images/The power.jfif" alt="Book 5">
-                    <p class="Book Title">The Power of Your Subconscious Mind </p>
-                    <p class ="Author">Author: Joseph Murphy</p>
-                    <p class = "Price">Price: ₹129.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-             </div>
-                <div class="book">
-                    <img src="./Images/Ghosts.jfif" alt="Book 6">
-                    <p class="Book Title">Ghosts of The Silent Hills</p>
-                    <p class ="Author">Author: Anita Krishan </p>
-                    <p class = "Price">Price: ₹169.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-             </div>
-             <div class="book">
-                    <img src="./Images/The Diary.jfif" alt="Book 7">
-                    <p class="Book Title">The Diary Of A Young Girl </p>
-                    <p class ="Author">Author: Anne Frank</p>
-                    <p class = "Price">Price: ₹119.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-             </div>
-             <div class="book">
-                    <img src="./Images/karma.jfif" alt="Book 8">
-                    <p class="Book Title">Karma: A Yogi's Guide To Crafting Your Destiny</p>
-                    <p class ="Author">Author: Sadhguru</p>
-                    <p class = "Price">Price: ₹192.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/always.jfif" alt="Book 9">
-                    <p class="Book Title">Always On My Mind</p>
-                    <p class ="Author">Author: Beth Moran </p>
-                    <p class = "Price">Price: ₹149.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/Dont.png" alt="Book 10">
-                    <p class="Book Title">Don't Believe Everything You Think</p>
-                    <p class ="Author">Author: Joseph Nguyen</p>
-                    <p class = "Price">Price: ₹191.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/You only.jfif" alt="Book 11">
-                    <p class="Book Title">You Only Live Once</p>
-                    <p class ="Author">Author: Changle Stuti</p>
-                    <p class = "Price">Price: ₹165.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/Be.jfif" alt="Book 12">
-                    <p class="Book Title">Be Your Own Sunshine</p>
-                    <p class ="Author">Author: James Allen</p>
-                    <p class = "Price">Price: ₹115.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/Think.png" alt="Book 13">
-                    <p class="Book Title">Think and Grow Rich</p>
-                    <p class ="Author">Author: Napoleon Hill</p>
-                    <p class = "Price">Price: ₹140.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/Psychology.jfif" alt="Book 14">
-                    <p class="Book Title">The Psychology Of Money</p>
-                    <p class ="Author">Author: Morgan Housel</p>
-                    <p class = "Price">Price: ₹281.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/India.jfif" alt="Book 15">
-                    <p class="Book Title">India that is Bharat</p>
-                    <p class ="Author">Author: J Sai Deepak</p>
-                    <p class = "Price">Price: ₹350.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/5 clubs.jfif" alt="Book 16">
-                    <p class="Book Title">The 5 Am Club</p>
-                    <p class ="Author">Author: Robin Sharma</p>
-                    <p class = "Price">Price: ₹274.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/Dont.png" alt="Book 10">
-                    <p class="Book Title">Don't Believe Everything You Think</p>
-                    <p class ="Author">Author: Joseph Nguyen</p>
-                    <p class = "Price">Price: ₹191.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/Dont.png" alt="Book 10">
-                    <p class="Book Title">Don't Believe Everything You Think</p>
-                    <p class ="Author">Author: Joseph Nguyen</p>
-                    <p class = "Price">Price: ₹191.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/Dont.png" alt="Book 10">
-                    <p class="Book Title">Don't Believe Everything You Think</p>
-                    <p class ="Author">Author: Joseph Nguyen</p>
-                    <p class = "Price">Price: ₹191.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/India.jfif" alt="Book 15">
-                    <p class="Book Title">India that is Bharat</p>
-                    <p class ="Author">Author: J Sai Deepak</p>
-                    <p class = "Price">Price: ₹350.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-                <div class="book">
-                    <img src="./Images/India.jfif" alt="Book 15">
-                    <p class="Book Title">India that is Bharat</p>
-                    <p class ="Author">Author: J Sai Deepak</p>
-                    <p class = "Price">Price: ₹350.00</p>
-                    <button class="buy-button">Add Cart</button>
-                    <button class="buy-button">Buy Now</button> 
-                </div>
-            </div>
-        </body>
-  </section>
-  <section id="signup" class="Sign Up">
+        .navbar {
+            background-color: #240955;
+            padding: 15px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            color: white;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+        }
+
+        .nav-links a:hover {
+            background-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+        }
+
+        .welcome-section {
+            background-color: white;
+            padding: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            margin-bottom: 30px;
+        }
+
+        .welcome-section h1 {
+            color: #240955;
+            margin-bottom: 10px;
+        }
+
+        .welcome-section p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-top: 30px;
+        }
+
+        .feature-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+        }
+
+        .feature-card i {
+            font-size: 24px;
+            color: #240955;
+            margin-bottom: 15px;
+        }
+
+        .feature-card h3 {
+            color: #240955;
+            margin-bottom: 10px;
+        }
+
+        .feature-card p {
+            color: #666;
+            line-height: 1.6;
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #4CAF50;
+            color: white;
+            padding: 15px 25px;
+            border-radius: 5px;
+            display: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Welcome to My Website</h1>
-    <p>Ready to get started? 
-        <a href="signup.html">Sign Up</a> now!</p>
-</body>
-</section>
- <section id="login" class="login">
-        <body>
-        <p>USER LOGIN HERE
-            <a href="login.html">Login</a> </p>
-    </body>
-    </section>
-<footer id="contact Us" class="contact Us">
-        <div class="contact-content">
-            <h2>Contact Us</h2>
-            <p>Email: shraddha4@email.com</p>
-            <p>Phone: +1 123-456-7890</p>
+    <nav class="navbar">
+        <div class="container">
+            <a href="landing.html" class="logo">
+                <i class="fas fa-book"></i>
+                BookStore
+            </a>
+            <div class="nav-links">
+                <a href="landing.html">Home</a>
+                <a href="manage_books.html">Books</a>
+                <a href="cart.html">Cart</a>
+            </div>
         </div>
-<footer>
-        <p>&copy; 2023 Book Store</p>
-</footer>
-    </body>
-<script src="landing.js"></script>
+    </nav>
+
+    <div class="container">
+        <header class="hero">
+            <h1>Welcome to BookStore</h1>
+            <p>Discover your next favorite book</p>
+            <a href="manage_books.html" class="btn">Browse Books</a>
+        </header>
+
+        <div class="features">
+            <div class="feature-card">
+                <i class="fas fa-book-open"></i>
+                <h3>Extensive Collection</h3>
+                <p>Browse through thousands of books across various genres and categories.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-search"></i>
+                <h3>Easy Search</h3>
+                <p>Find exactly what you're looking for with our powerful search functionality.</p>
+            </div>
+            <div class="feature-card">
+                <i class="fas fa-shopping-cart"></i>
+                <h3>Simple Purchase</h3>
+                <p>Buy your favorite books with just a few clicks and have them delivered to your doorstep.</p>
+            </div>
+        </div>
+    </div>
+
+    <div id="notification" class="notification">
+        <span id="notification-message"></span>
+    </div>
+
+    <script>
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const messageElement = document.getElementById('notification-message');
+            
+            messageElement.textContent = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+    </script>
+</body>
 </html>
 
        

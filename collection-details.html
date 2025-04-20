@@ -1,0 +1,442 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookStore - Collection Details</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6c5ce7;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #6c5ce7;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            background: rgba(108, 92, 231, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .collection-details {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 2rem;
+        }
+
+        .collection-header {
+            text-align: center;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .collection-title {
+            font-size: 2.5rem;
+            color: #6c5ce7;
+            margin-bottom: 1rem;
+        }
+
+        .collection-description {
+            color: #666;
+            max-width: 800px;
+            margin: 0 auto;
+            line-height: 1.6;
+        }
+
+        .books-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .book-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.3s ease;
+        }
+
+        .book-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.15);
+        }
+
+        .book-image {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .book-card:hover .book-image {
+            transform: scale(1.05);
+        }
+
+        .book-info {
+            padding: 1.5rem;
+        }
+
+        .book-title {
+            font-size: 1.2rem;
+            color: #6c5ce7;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .book-author {
+            color: #666;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .book-price {
+            font-weight: bold;
+            color: #6c5ce7;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+
+        .book-actions {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 0.8rem;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+
+        .add-to-cart {
+            background: #6c5ce7;
+            color: white;
+        }
+
+        .buy-now {
+            background: #a29bfe;
+            color: white;
+        }
+
+        .action-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.2);
+        }
+
+        .notification {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #6c5ce7;
+            color: white;
+            padding: 1rem 2rem;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            display: none;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .books-grid {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            }
+
+            .collection-title {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                BookStore
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="collections.html">Collections</a>
+                <a href="cart.html">Cart</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="collection-details">
+        <div class="collection-header">
+            <h1 class="collection-title" id="collectionTitle">Collection Title</h1>
+            <p class="collection-description" id="collectionDescription">Collection Description</p>
+        </div>
+
+        <div class="books-grid" id="booksGrid">
+            <!-- Books will be dynamically added here -->
+        </div>
+    </div>
+
+    <div class="notification" id="notification">
+        <span id="notificationMessage"></span>
+    </div>
+
+    <script>
+        // Sample books data for each collection
+        const collections = {
+            fiction: {
+                title: "Fiction Collection",
+                description: "Explore our curated selection of the finest fiction books from around the world.",
+                books: [
+                    { id: 1, title: "The Great Gatsby", author: "F. Scott Fitzgerald", price: 12.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 2, title: "To Kill a Mockingbird", author: "Harper Lee", price: 14.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 3, title: "1984", author: "George Orwell", price: 11.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 4, title: "Pride and Prejudice", author: "Jane Austen", price: 10.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 5, title: "The Catcher in the Rye", author: "J.D. Salinger", price: 13.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 6, title: "The Hobbit", author: "J.R.R. Tolkien", price: 15.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 7, title: "Brave New World", author: "Aldous Huxley", price: 12.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 8, title: "The Lord of the Rings", author: "J.R.R. Tolkien", price: 19.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 9, title: "The Alchemist", author: "Paulo Coelho", price: 11.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 10, title: "The Kite Runner", author: "Khaled Hosseini", price: 13.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" }
+                ]
+            },
+            science: {
+                title: "Science Collection",
+                description: "Discover the wonders of science through our comprehensive collection.",
+                books: [
+                    { id: 11, title: "A Brief History of Time", author: "Stephen Hawking", price: 14.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 12, title: "The Selfish Gene", author: "Richard Dawkins", price: 13.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 13, title: "Cosmos", author: "Carl Sagan", price: 15.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 14, title: "The Elegant Universe", author: "Brian Greene", price: 16.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 15, title: "The Gene", author: "Siddhartha Mukherjee", price: 17.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 16, title: "The Emperor of All Maladies", author: "Siddhartha Mukherjee", price: 18.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 17, title: "The Sixth Extinction", author: "Elizabeth Kolbert", price: 14.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 18, title: "The Hidden Life of Trees", author: "Peter Wohlleben", price: 12.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 19, title: "The Immortal Life of Henrietta Lacks", author: "Rebecca Skloot", price: 13.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 20, title: "The Man Who Knew Infinity", author: "Robert Kanigel", price: 15.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" }
+                ]
+            },
+            history: {
+                title: "History Collection",
+                description: "Journey through time with our extensive history book collection.",
+                books: [
+                    { id: 21, title: "Sapiens", author: "Yuval Noah Harari", price: 16.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 22, title: "Guns, Germs, and Steel", author: "Jared Diamond", price: 15.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 23, title: "The Rise and Fall of the Third Reich", author: "William L. Shirer", price: 19.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 24, title: "The Wright Brothers", author: "David McCullough", price: 14.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 25, title: "The Diary of a Young Girl", author: "Anne Frank", price: 12.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 26, title: "The Civil War", author: "Shelby Foote", price: 18.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 27, title: "The History of the Ancient World", author: "Susan Wise Bauer", price: 17.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 28, title: "The Silk Roads", author: "Peter Frankopan", price: 16.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 29, title: "The Crusades", author: "Thomas Asbridge", price: 15.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 30, title: "The Roman Empire", author: "Mary Beard", price: 14.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" }
+                ]
+            },
+            biography: {
+                title: "Biography Collection",
+                description: "Read about the lives of extraordinary people who shaped our world.",
+                books: [
+                    { id: 31, title: "Steve Jobs", author: "Walter Isaacson", price: 16.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 32, title: "Einstein: His Life and Universe", author: "Walter Isaacson", price: 15.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 33, title: "Leonardo da Vinci", author: "Walter Isaacson", price: 17.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 34, title: "The Wright Brothers", author: "David McCullough", price: 14.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 35, title: "Alexander Hamilton", author: "Ron Chernow", price: 18.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 36, title: "Churchill: Walking with Destiny", author: "Andrew Roberts", price: 19.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 37, title: "Becoming", author: "Michelle Obama", price: 16.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 38, title: "The Autobiography of Malcolm X", author: "Malcolm X", price: 15.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 39, title: "Long Walk to Freedom", author: "Nelson Mandela", price: 17.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 40, title: "The Story of My Experiments with Truth", author: "Mahatma Gandhi", price: 14.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" }
+                ]
+            },
+            art: {
+                title: "Art Collection",
+                description: "Immerse yourself in the world of art with our stunning collection.",
+                books: [
+                    { id: 41, title: "The Story of Art", author: "E.H. Gombrich", price: 19.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 42, title: "Ways of Seeing", author: "John Berger", price: 15.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 43, title: "The Lives of the Artists", author: "Giorgio Vasari", price: 16.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 44, title: "The Art Book", author: "Phaidon Press", price: 24.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 45, title: "Modern Art", author: "David Cottington", price: 18.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 46, title: "The Art of the Renaissance", author: "Peter Murray", price: 17.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 47, title: "Art Since 1900", author: "Hal Foster", price: 22.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 48, title: "The Shock of the New", author: "Robert Hughes", price: 16.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 49, title: "Art and Visual Perception", author: "Rudolf Arnheim", price: 19.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 50, title: "The Art of Looking", author: "Lance Esplund", price: 15.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" }
+                ]
+            },
+            technology: {
+                title: "Technology Collection",
+                description: "Stay ahead with our cutting-edge technology and programming books.",
+                books: [
+                    { id: 51, title: "Clean Code", author: "Robert C. Martin", price: 29.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 52, title: "Design Patterns", author: "Erich Gamma", price: 34.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 53, title: "The Pragmatic Programmer", author: "Andrew Hunt", price: 27.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 54, title: "Code Complete", author: "Steve McConnell", price: 32.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 55, title: "Refactoring", author: "Martin Fowler", price: 28.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 56, title: "Head First Design Patterns", author: "Eric Freeman", price: 31.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 57, title: "JavaScript: The Good Parts", author: "Douglas Crockford", price: 25.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" },
+                    { id: 58, title: "Python Crash Course", author: "Eric Matthes", price: 24.99, image: "https://images.unsplash.com/photo-1543002588-bfa74002ed7e" },
+                    { id: 59, title: "The Clean Coder", author: "Robert C. Martin", price: 26.99, image: "https://images.unsplash.com/photo-1544947950-fa07a98d237f" },
+                    { id: 60, title: "You Don't Know JS", author: "Kyle Simpson", price: 23.99, image: "https://images.unsplash.com/photo-1541963463532-d68292c34b19" }
+                ]
+            }
+        };
+
+        // Get collection type from URL
+        const urlParams = new URLSearchParams(window.location.search);
+        const collectionType = urlParams.get('type');
+
+        // Display collection details
+        function displayCollection() {
+            const collection = collections[collectionType];
+            if (!collection) {
+                window.location.href = 'collections.html';
+                return;
+            }
+
+            document.getElementById('collectionTitle').textContent = collection.title;
+            document.getElementById('collectionDescription').textContent = collection.description;
+
+            const booksGrid = document.getElementById('booksGrid');
+            booksGrid.innerHTML = '';
+
+            collection.books.forEach(book => {
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
+                bookCard.innerHTML = `
+                    <img src="${book.image}" alt="${book.title}" class="book-image">
+                    <div class="book-info">
+                        <h3 class="book-title">${book.title}</h3>
+                        <p class="book-author">${book.author}</p>
+                        <p class="book-price">$${book.price.toFixed(2)}</p>
+                        <div class="book-actions">
+                            <button class="action-btn add-to-cart" onclick="addToCart(${book.id})">Add to Cart</button>
+                            <button class="action-btn buy-now" onclick="buyNow(${book.id})">Buy Now</button>
+                        </div>
+                    </div>
+                `;
+                booksGrid.appendChild(bookCard);
+            });
+        }
+
+        // Add to cart functionality
+        function addToCart(bookId) {
+            const allBooks = Object.values(collections).flatMap(c => c.books);
+            const book = allBooks.find(b => b.id === bookId);
+            
+            if (book) {
+                let cart = JSON.parse(localStorage.getItem('cart')) || [];
+                const existingItem = cart.find(item => item.id === bookId);
+                
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: book.id,
+                        title: book.title,
+                        price: book.price,
+                        quantity: 1
+                    });
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cart));
+                showNotification(`${book.title} added to cart!`);
+            }
+        }
+
+        // Buy now functionality
+        function buyNow(bookId) {
+            const allBooks = Object.values(collections).flatMap(c => c.books);
+            const book = allBooks.find(b => b.id === bookId);
+            
+            if (book) {
+                localStorage.setItem('checkoutBook', JSON.stringify({
+                    id: book.id,
+                    title: book.title,
+                    price: book.price,
+                    quantity: 1
+                }));
+                window.location.href = 'checkout.html';
+            }
+        }
+
+        // Show notification
+        function showNotification(message) {
+            const notification = document.getElementById('notification');
+            const messageElement = document.getElementById('notificationMessage');
+            
+            messageElement.textContent = message;
+            notification.style.display = 'block';
+            
+            setTimeout(() => {
+                notification.style.display = 'none';
+            }, 3000);
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', displayCollection);
+    </script>
+</body>
+</html> 

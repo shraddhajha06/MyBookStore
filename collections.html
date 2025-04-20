@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BookStore - Collections</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            color: #333;
+            min-height: 100vh;
+        }
+
+        header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(10px);
+            padding: 1rem;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .header-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 1rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #6c5ce7;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .nav-links a {
+            color: #6c5ce7;
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+        }
+
+        .nav-links a:hover {
+            background: rgba(108, 92, 231, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .collections-container {
+            max-width: 1200px;
+            margin: 100px auto 0;
+            padding: 2rem;
+        }
+
+        .page-title {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: #6c5ce7;
+            font-size: 2.5rem;
+            position: relative;
+            padding-bottom: 1rem;
+        }
+
+        .page-title::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, #6c5ce7, #a29bfe);
+            border-radius: 2px;
+        }
+
+        .collections-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .collection-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            cursor: pointer;
+        }
+
+        .collection-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(108, 92, 231, 0.15);
+        }
+
+        .collection-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .collection-card:hover .collection-image {
+            transform: scale(1.1);
+        }
+
+        .collection-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(to bottom, rgba(108, 92, 231, 0.2), rgba(108, 92, 231, 0.6));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .collection-card:hover .collection-overlay {
+            opacity: 1;
+        }
+
+        .collection-info {
+            padding: 1.5rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .collection-title {
+            font-size: 1.5rem;
+            color: #6c5ce7;
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+        }
+
+        .collection-description {
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 1rem;
+        }
+
+        .collection-stats {
+            display: flex;
+            gap: 1rem;
+            color: #6c5ce7;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .collection-stats span {
+            display: flex;
+            align-items: center;
+            gap: 0.3rem;
+        }
+
+        .explore-btn {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background: #6c5ce7;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            text-decoration: none;
+            text-align: center;
+            width: 100%;
+        }
+
+        .explore-btn:hover {
+            background: #a29bfe;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(108, 92, 231, 0.2);
+        }
+
+        .category-filters {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .category-btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: 25px;
+            background: white;
+            color: #6c5ce7;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+        }
+
+        .category-btn:hover, .category-btn.active {
+            background: #6c5ce7;
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .search-bar {
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            padding-right: 3rem;
+            border: none;
+            border-radius: 25px;
+            background: white;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.15);
+        }
+
+        .search-icon {
+            position: absolute;
+            right: 1.5rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #6c5ce7;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .collection-card {
+            animation: fadeIn 0.5s ease-out forwards;
+        }
+
+        .collection-card:nth-child(2) {
+            animation-delay: 0.1s;
+        }
+
+        .collection-card:nth-child(3) {
+            animation-delay: 0.2s;
+        }
+
+        .collection-card:nth-child(4) {
+            animation-delay: 0.3s;
+        }
+
+        .collection-card:nth-child(5) {
+            animation-delay: 0.4s;
+        }
+
+        .collection-card:nth-child(6) {
+            animation-delay: 0.5s;
+        }
+
+        .floating-books {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #6c5ce7;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            box-shadow: 0 4px 15px rgba(108, 92, 231, 0.3);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            z-index: 100;
+        }
+
+        .floating-books:hover {
+            transform: translateY(-5px) rotate(10deg);
+            box-shadow: 0 6px 20px rgba(108, 92, 231, 0.4);
+        }
+
+        .new-collection-notification {
+            position: fixed;
+            top: 100px;
+            right: 20px;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transform: translateX(120%);
+            transition: transform 0.3s ease;
+            z-index: 1000;
+            max-width: 350px;
+        }
+
+        .new-collection-notification.show {
+            transform: translateX(0);
+        }
+
+        .notification-icon {
+            background: #6c5ce7;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+        }
+
+        .notification-content {
+            flex: 1;
+        }
+
+        .notification-title {
+            font-weight: 600;
+            color: #6c5ce7;
+            margin-bottom: 0.3rem;
+        }
+
+        .notification-message {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .notification-close {
+            color: #999;
+            cursor: pointer;
+            transition: color 0.3s ease;
+        }
+
+        .notification-close:hover {
+            color: #6c5ce7;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background: #ff4757;
+            color: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.7rem;
+            font-weight: bold;
+            animation: pulse 2s infinite;
+        }
+
+        @media (max-width: 768px) {
+            .collections-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .category-filters {
+                gap: 0.5rem;
+            }
+
+            .category-btn {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+        }
+
+        .book-image {
+            width: 100%;
+            height: 400px;
+            object-fit: contain;
+            background-color: #f5f5f5;
+            transition: transform 0.5s ease;
+            padding: 1rem;
+        }
+
+        .book-card:hover .book-image {
+            transform: scale(1.05);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div class="logo">
+                <i class="fas fa-book-open"></i>
+                BookStore
+            </div>
+            <nav class="nav-links">
+                <a href="index.html">Home</a>
+                <a href="collections.html" class="active">Collections</a>
+                <a href="cart.html">Cart</a>
+                <a href="login.html">Login</a>
+            </nav>
+        </div>
+    </header>
+
+    <div class="collections-container">
+        <h1 class="page-title">Our Collections</h1>
+
+        <div class="search-bar">
+            <input type="text" class="search-input" placeholder="Search collections...">
+            <i class="fas fa-search search-icon"></i>
+        </div>
+
+        <div class="category-filters">
+            <button class="category-btn active">All</button>
+            <button class="category-btn">Fiction</button>
+            <button class="category-btn">Non-Fiction</button>
+            <button class="category-btn">Science</button>
+            <button class="category-btn">History</button>
+            <button class="category-btn">Biography</button>
+        </div>
+
+        <div class="collections-grid">
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e" alt="Fiction Collection" class="collection-image">
+                <div class="collection-overlay"></div>
+                <div class="collection-info">
+                    <h2 class="collection-title">Fiction Collection</h2>
+                    <p class="collection-description">Explore our curated selection of the finest fiction books from around the world.</p>
+                    <div class="collection-stats">
+                        <span><i class="fas fa-book"></i> 250+ Books</span>
+                        <span><i class="fas fa-star"></i> 4.8 Rating</span>
+                    </div>
+                    <a href="collection-details.html?type=fiction" class="explore-btn">Explore Collection</a>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f" alt="Science Collection" class="collection-image">
+                <div class="collection-overlay"></div>
+                <div class="collection-info">
+                    <h2 class="collection-title">Science Collection</h2>
+                    <p class="collection-description">Discover the wonders of science through our comprehensive collection.</p>
+                    <div class="collection-stats">
+                        <span><i class="fas fa-book"></i> 180+ Books</span>
+                        <span><i class="fas fa-star"></i> 4.9 Rating</span>
+                    </div>
+                    <a href="collection-details.html?type=science" class="explore-btn">Explore Collection</a>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19" alt="History Collection" class="collection-image">
+                <div class="collection-overlay"></div>
+                <div class="collection-info">
+                    <h2 class="collection-title">History Collection</h2>
+                    <p class="collection-description">Journey through time with our extensive history book collection.</p>
+                    <div class="collection-stats">
+                        <span><i class="fas fa-book"></i> 200+ Books</span>
+                        <span><i class="fas fa-star"></i> 4.7 Rating</span>
+                    </div>
+                    <a href="collection-details.html?type=history" class="explore-btn">Explore Collection</a>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1543002588-bfa74002ed7e" alt="Biography Collection" class="collection-image">
+                <div class="collection-overlay"></div>
+                <div class="collection-info">
+                    <h2 class="collection-title">Biography Collection</h2>
+                    <p class="collection-description">Read about the lives of extraordinary people who shaped our world.</p>
+                    <div class="collection-stats">
+                        <span><i class="fas fa-book"></i> 150+ Books</span>
+                        <span><i class="fas fa-star"></i> 4.8 Rating</span>
+                    </div>
+                    <a href="collection-details.html?type=biography" class="explore-btn">Explore Collection</a>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1544947950-fa07a98d237f" alt="Art Collection" class="collection-image">
+                <div class="collection-overlay"></div>
+                <div class="collection-info">
+                    <h2 class="collection-title">Art Collection</h2>
+                    <p class="collection-description">Immerse yourself in the world of art with our stunning collection.</p>
+                    <div class="collection-stats">
+                        <span><i class="fas fa-book"></i> 120+ Books</span>
+                        <span><i class="fas fa-star"></i> 4.9 Rating</span>
+                    </div>
+                    <a href="collection-details.html?type=art" class="explore-btn">Explore Collection</a>
+                </div>
+            </div>
+
+            <div class="collection-card">
+                <img src="https://images.unsplash.com/photo-1541963463532-d68292c34b19" alt="Technology Collection" class="collection-image">
+                <div class="collection-overlay"></div>
+                <div class="collection-info">
+                    <h2 class="collection-title">Technology Collection</h2>
+                    <p class="collection-description">Stay ahead with our cutting-edge technology and programming books.</p>
+                    <div class="collection-stats">
+                        <span><i class="fas fa-book"></i> 160+ Books</span>
+                        <span><i class="fas fa-star"></i> 4.8 Rating</span>
+                    </div>
+                    <a href="collection-details.html?type=technology" class="explore-btn">Explore Collection</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="new-collection-notification" id="newCollectionNotification">
+        <div class="notification-icon">
+            <i class="fas fa-book"></i>
+        </div>
+        <div class="notification-content">
+            <div class="notification-title">New Collection Alert!</div>
+            <div class="notification-message" id="notificationMessage">A new collection has been added to our bookstore.</div>
+        </div>
+        <div class="notification-close" onclick="closeNotification()">
+            <i class="fas fa-times"></i>
+        </div>
+    </div>
+
+    <div class="floating-books">
+        <i class="fas fa-book"></i>
+        <div class="notification-badge" id="notificationBadge">1</div>
+    </div>
+
+    <script>
+        // Check authentication on page load
+        function checkAuthentication() {
+            const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+            if (!currentUser) {
+                window.location.href = 'login.html';
+            }
+        }
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', () => {
+            checkAuthentication();
+            // Add smooth animations for category buttons
+            document.querySelectorAll('.category-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelector('.category-btn.active').classList.remove('active');
+                    btn.classList.add('active');
+                });
+            });
+
+            // Add hover effect for collection cards
+            document.querySelectorAll('.collection-card').forEach(card => {
+                card.addEventListener('mouseenter', () => {
+                    card.style.transform = 'translateY(-10px) scale(1.02)';
+                });
+                card.addEventListener('mouseleave', () => {
+                    card.style.transform = 'translateY(0) scale(1)';
+                });
+            });
+
+            // Add search functionality
+            const searchInput = document.querySelector('.search-input');
+            searchInput.addEventListener('input', (e) => {
+                const searchTerm = e.target.value.toLowerCase();
+                document.querySelectorAll('.collection-card').forEach(card => {
+                    const title = card.querySelector('.collection-title').textContent.toLowerCase();
+                    const description = card.querySelector('.collection-description').textContent.toLowerCase();
+                    if (title.includes(searchTerm) || description.includes(searchTerm)) {
+                        card.style.display = 'block';
+                    } else {
+                        card.style.display = 'none';
+                    }
+                });
+            });
+
+            // New collection notification functionality
+            function showNewCollectionNotification(collectionName) {
+                const notification = document.getElementById('newCollectionNotification');
+                const message = document.getElementById('notificationMessage');
+                const badge = document.getElementById('notificationBadge');
+                
+                message.textContent = `New collection "${collectionName}" has been added to our bookstore!`;
+                notification.classList.add('show');
+                badge.style.display = 'flex';
+                
+                // Auto-hide after 5 seconds
+                setTimeout(() => {
+                    closeNotification();
+                }, 5000);
+            }
+
+            function closeNotification() {
+                const notification = document.getElementById('newCollectionNotification');
+                const badge = document.getElementById('notificationBadge');
+                
+                notification.classList.remove('show');
+                badge.style.display = 'none';
+            }
+
+            // Simulate new collection arrival (for demonstration)
+            function simulateNewCollection() {
+                const collections = [
+                    "Fantasy Collection",
+                    "Mystery Collection",
+                    "Romance Collection",
+                    "Science Fiction Collection"
+                ];
+                
+                const randomCollection = collections[Math.floor(Math.random() * collections.length)];
+                showNewCollectionNotification(randomCollection);
+            }
+
+            // Add click event to floating books button
+            document.querySelector('.floating-books').addEventListener('click', simulateNewCollection);
+
+            // Check for new collections on page load
+            setTimeout(() => {
+                simulateNewCollection();
+            }, 3000);
+        });
+
+        // Sample inspirational books data
+        const books = [
+            {
+                id: 1,
+                title: "The Power of Now",
+                author: "Eckhart Tolle",
+                price: 12.99,
+                image: "https://images-na.ssl-images-amazon.com/images/I/41bQRkz9QhL._SX331_BO1,204,203,200_.jpg",
+                description: "A guide to spiritual enlightenment and living in the present moment."
+            },
+            {
+                id: 2,
+                title: "Atomic Habits",
+                author: "James Clear",
+                price: 14.99,
+                image: "https://images-na.ssl-images-amazon.com/images/I/51u8ZRDCVoL._SX330_BO1,204,203,200_.jpg",
+                description: "Learn how to build good habits and break bad ones."
+            },
+            {
+                id: 3,
+                title: "The 7 Habits of Highly Effective People",
+                author: "Stephen R. Covey",
+                price: 15.99,
+                image: "https://images-na.ssl-images-amazon.com/images/I/51mIhU1pQZL._SX331_BO1,204,203,200_.jpg",
+                description: "A powerful framework for personal and professional effectiveness."
+            },
+            {
+                id: 4,
+                title: "The Alchemist",
+                author: "Paulo Coelho",
+                price: 11.99,
+                image: "https://images-na.ssl-images-amazon.com/images/I/51Z0nLAfLmL._SX331_BO1,204,203,200_.jpg",
+                description: "A magical story about following your dreams."
+            },
+            {
+                id: 5,
+                title: "The Four Agreements",
+                author: "Don Miguel Ruiz",
+                price: 9.99,
+                image: "https://images-na.ssl-images-amazon.com/images/I/51Z0nLAfLmL._SX331_BO1,204,203,200_.jpg",
+                description: "A practical guide to personal freedom and happiness."
+            },
+            {
+                id: 6,
+                title: "Rich Dad Poor Dad",
+                author: "Robert T. Kiyosaki",
+                price: 12.99,
+                image: "https://images-na.ssl-images-amazon.com/images/I/51u8ZRDCVoL._SX330_BO1,204,203,200_.jpg",
+                description: "What the rich teach their kids about money that the poor and middle class do not."
+            },
+            {
+                id: 7,
+                title: "The Subtle Art of Not Giving a F*ck",
+                author: "Mark Manson",
+                price: 13.99,
+                image: "https://images-na.ssl-images-amazon.com/images/I/51mIhU1pQZL._SX331_BO1,204,203,200_.jpg",
+                description: "A counterintuitive approach to living a good life."
+            },
+            {
+                id: 8,
+                title: "Ikigai",
+                author: "Héctor García and Francesc Miralles",
+                price: 14.99,
+                image: "https://images-na.ssl-images-amazon.com/images/I/41bQRkz9QhL._SX331_BO1,204,203,200_.jpg",
+                description: "The Japanese secret to a long and happy life."
+            }
+        ];
+
+        // Display books
+        function displayBooks() {
+            const booksGrid = document.getElementById('booksGrid');
+            booksGrid.innerHTML = '';
+
+            books.forEach(book => {
+                const bookCard = document.createElement('div');
+                bookCard.className = 'book-card';
+                bookCard.setAttribute('data-book-id', book.id);
+                bookCard.innerHTML = `
+                    <img src="${book.image}" alt="${book.title}" class="book-image">
+                    <div class="book-info">
+                        <h3 class="book-title">${book.title}</h3>
+                        <p class="book-author">${book.author}</p>
+                        <p class="book-price">$${book.price.toFixed(2)}</p>
+                        <div class="book-actions">
+                            <button class="btn btn-primary" onclick="addToCart(${book.id})">Add to Cart</button>
+                            <button class="btn btn-secondary" onclick="buyNow(${book.id})">Buy Now</button>
+                        </div>
+                    </div>
+                `;
+                booksGrid.appendChild(bookCard);
+            });
+        }
+    </script>
+</body>
+</html> 
