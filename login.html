@@ -5,6 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Login - BookNest</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <!-- Add EmailJS SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <script>
+        (function() {
+            // Initialize EmailJS with your public key
+            emailjs.init("ks310pCn6uvSSzdV2");
+        })();
+    </script>
     <style>
         * {
             margin: 0;
@@ -226,6 +234,162 @@
                 top: 2rem;
             }
         }
+
+        /* Add forgot password button styles */
+        .forgot-password-btn {
+            background: none;
+            border: none;
+            color: #4CAF50;
+            font-size: 0.9rem;
+            cursor: pointer;
+            padding: 0.5rem 0;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 1.5rem;
+            text-decoration: none;
+            width: 100%;
+            justify-content: flex-end;
+        }
+
+        .forgot-password-btn:hover {
+            color: #240955;
+        }
+
+        .forgot-password-btn i {
+            font-size: 1rem;
+        }
+
+        /* Add reset password modal styles */
+        .reset-password-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.7);
+            z-index: 2001;
+            justify-content: center;
+            align-items: center;
+            padding: 1rem;
+        }
+
+        .reset-password-modal.active {
+            display: flex;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .reset-password-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            width: 90%;
+            max-width: 400px;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+        }
+
+        .reset-password-container h3 {
+            color: #240955;
+            margin-bottom: 1rem;
+            font-size: 1.4rem;
+            text-align: center;
+        }
+
+        .reset-password-container p {
+            color: #666;
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+            text-align: center;
+            line-height: 1.5;
+        }
+
+        .reset-password-container .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            color: #666;
+            cursor: pointer;
+            font-size: 1.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .reset-password-container .close-btn:hover {
+            color: #240955;
+        }
+
+        .reset-password-container .reset-btn {
+            background: linear-gradient(135deg, #4CAF50, #240955);
+            color: white;
+            border: none;
+            padding: 1rem 1.5rem;
+            border-radius: 8px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1rem;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        .reset-password-container .reset-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(76, 175, 80, 0.2);
+        }
+
+        .reset-success {
+            text-align: center;
+            padding: 2rem;
+            display: none;
+        }
+
+        .reset-success.active {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .reset-success i {
+            font-size: 3rem;
+            color: #4CAF50;
+            margin-bottom: 1rem;
+        }
+
+        .reset-success h4 {
+            color: #240955;
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .reset-success p {
+            color: #666;
+            font-size: 0.95rem;
+            line-height: 1.5;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        /* Add loading spinner styles */
+        .fa-spinner {
+            animation: spin 1s linear infinite;
+        }
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        .reset-btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
     </style>
 </head>
 <body>
@@ -251,6 +415,10 @@
                 <input type="password" id="password" name="password" required>
                 <i class="fas fa-eye password-toggle" onclick="togglePassword('password')"></i>
             </div>
+            <button type="button" class="forgot-password-btn" onclick="showResetPasswordModal()">
+                <i class="fas fa-key"></i>
+                Forgot Password?
+            </button>
             <div class="remember-me">
                 <input type="checkbox" id="remember" name="remember">
                 <label for="remember">Remember me</label>
@@ -260,6 +428,32 @@
                 <p>Don't have an account? <a href="register.html">Register</a></p>
             </div>
         </form>
+    </div>
+
+    <!-- Add Reset Password Modal -->
+    <div class="reset-password-modal" id="resetPasswordModal">
+        <div class="reset-password-container">
+            <button class="close-btn" onclick="closeResetPasswordModal()">
+                <i class="fas fa-times"></i>
+            </button>
+            <h3>Reset Your Password</h3>
+            <p>Enter your email address and we'll send you a link to reset your password.</p>
+            <form id="resetPasswordForm" onsubmit="handleResetPassword(event)">
+                <div class="form-group">
+                    <label for="resetEmail">Email Address</label>
+                    <input type="email" id="resetEmail" required placeholder="Enter your registered email">
+                </div>
+                <button type="submit" class="reset-btn">
+                    <i class="fas fa-paper-plane"></i>
+                    Send Reset Link
+                </button>
+            </form>
+            <div class="reset-success" id="resetSuccess">
+                <i class="fas fa-check-circle"></i>
+                <h4>Reset Link Sent!</h4>
+                <p>We've sent a password reset link to your email address. Please check your inbox and follow the instructions to reset your password.</p>
+            </div>
+        </div>
     </div>
 
     <div id="notification" class="notification">
@@ -324,7 +518,11 @@
                 localStorage.setItem('currentUser', JSON.stringify(session));
                 
                 if (remember) {
-                    localStorage.setItem('rememberedUser', JSON.stringify({ email }));
+                    // Save both email and password for auto-fill
+                    localStorage.setItem('rememberedUser', JSON.stringify({ 
+                        email: email,
+                        password: password
+                    }));
                 } else {
                     localStorage.removeItem('rememberedUser');
                 }
@@ -344,7 +542,133 @@
             const rememberedUser = JSON.parse(localStorage.getItem('rememberedUser'));
             if (rememberedUser) {
                 document.getElementById('email').value = rememberedUser.email;
+                if (rememberedUser.password) {
+                    document.getElementById('password').value = rememberedUser.password;
+                }
                 document.getElementById('remember').checked = true;
+            }
+        });
+
+        // Add function to clear remembered credentials
+        function clearRememberedCredentials() {
+            localStorage.removeItem('rememberedUser');
+            document.getElementById('email').value = '';
+            document.getElementById('password').value = '';
+            document.getElementById('remember').checked = false;
+        }
+
+        // Add logout functionality
+        function handleLogout() {
+            localStorage.removeItem('currentUser');
+            // Don't remove remembered credentials on logout
+            window.location.href = 'login.html';
+        }
+
+        // Add reset password functions
+        function showResetPasswordModal() {
+            document.getElementById('resetPasswordModal').classList.add('active');
+            // Reset the form and success message
+            document.getElementById('resetPasswordForm').reset();
+            document.getElementById('resetSuccess').classList.remove('active');
+            document.getElementById('resetPasswordForm').style.display = 'block';
+        }
+
+        function closeResetPasswordModal() {
+            document.getElementById('resetPasswordModal').classList.remove('active');
+            // Reset the form and success message
+            document.getElementById('resetPasswordForm').reset();
+            document.getElementById('resetSuccess').classList.remove('active');
+        }
+
+        function handleResetPassword(event) {
+            event.preventDefault();
+            const email = document.getElementById('resetEmail').value;
+            
+            // Get users from localStorage
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            const user = users.find(u => u.email === email);
+            
+            if (user) {
+                // Generate a unique reset token
+                const resetToken = generateResetToken();
+                
+                // Store the reset token and its expiry time (24 hours from now)
+                const resetData = {
+                    email: email,
+                    token: resetToken,
+                    expiry: new Date().getTime() + (24 * 60 * 60 * 1000) // 24 hours
+                };
+                
+                // Save reset data to localStorage
+                localStorage.setItem('passwordReset_' + email, JSON.stringify(resetData));
+                
+                // Prepare email template parameters
+                const templateParams = {
+                    to_email: email,
+                    reset_link: `${window.location.origin}/reset-password.html?token=${resetToken}&email=${encodeURIComponent(email)}`,
+                    user_name: user.name || 'User',
+                    site_name: 'BookNest',
+                    to_name: user.name || 'User',
+                    from_name: 'BookNest',
+                    reply_to: email
+                };
+
+                // Show loading state
+                const resetBtn = document.querySelector('.reset-btn');
+                const originalBtnText = resetBtn.innerHTML;
+                resetBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Sending...';
+                resetBtn.disabled = true;
+                
+                // Send the reset email using EmailJS
+                emailjs.send('service_ekeqk2s', 'template_2892xzx', templateParams, 'ks310pCn6uvSSzdV2')
+                    .then(function(response) {
+                        console.log('SUCCESS!', response.status, response.text);
+                        // Hide the form and show success message
+                        document.getElementById('resetPasswordForm').style.display = 'none';
+                        document.getElementById('resetSuccess').classList.add('active');
+                        
+                        // Close the modal after 3 seconds
+                        setTimeout(() => {
+                            closeResetPasswordModal();
+                            // Reset the form display
+                            document.getElementById('resetPasswordForm').style.display = 'block';
+                        }, 3000);
+                    }, function(error) {
+                        console.error('FAILED...', error);
+                        // Reset button state
+                        resetBtn.innerHTML = originalBtnText;
+                        resetBtn.disabled = false;
+                        
+                        // Show detailed error message
+                        let errorMessage = 'Failed to send reset email. ';
+                        if (error.text) {
+                            errorMessage += `Error: ${error.text}`;
+                        } else if (error.message) {
+                            errorMessage += `Error: ${error.message}`;
+                        } else {
+                            errorMessage += 'Please try again.';
+                        }
+                        showNotification(errorMessage);
+                    });
+            } else {
+                showNotification('No account found with this email address.');
+            }
+        }
+
+        // Function to generate a secure random token
+        function generateResetToken() {
+            const array = new Uint32Array(28);
+            window.crypto.getRandomValues(array);
+            return Array.from(array, dec => ('0' + dec.toString(16)).substr(-2)).join('');
+        }
+
+        // Add click outside to close modal
+        document.addEventListener('click', function(event) {
+            const modal = document.getElementById('resetPasswordModal');
+            const container = document.querySelector('.reset-password-container');
+            
+            if (event.target === modal) {
+                closeResetPasswordModal();
             }
         });
     </script>
